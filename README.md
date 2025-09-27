@@ -30,8 +30,10 @@
 Follow these steps to get Scatch running on your local machine. You will need **Node.js** and **npm** installed.
 
 ### 1. Clone the Repository
-git clone [https://github.com/saloni873/scatch.git](https://github.com/saloni873/scatch.git)
+```bash
+git clone [https://github.com/your-username/scatch.git](https://github.com/your-username/scatch.git)
 cd scatch
+```
 
 ### 2. Backend Setup (API)
 The backend code is located in the backend directory.
@@ -41,33 +43,35 @@ cd backend
 npm install
 Create a file named .env in the backend directory and add the following variables:
 
-# Database connection string
+### Database connection string
 MONGO_URI=[YOUR_MONGODB_CONNECTION_STRING_HERE]
 
-# Secret key for signing JWTs
+### Secret key for signing JWTs
 JWT_SECRET=[A_LONG_SECURE_RANDOM_STRING]
 
-# Port for the Express server (Frontend should point to this port)
+### Port for the Express server (Frontend should point to this port)
 PORT=5000
 b. Run the Backend
 
 
 npm start
-# The API server should now be running at http://localhost:5000
+### The API server should now be running at http://localhost:5000
 3. Frontend Setup (Client)
 In a new terminal window, navigate back to the root directory and then into the frontend directory.
+
 
 a. Install Dependencies
 cd ..              # Back to the root 'scatch' folder
 cd frontend
 npm install
+
 b. Run the Frontend
 Bash
 
 npm start
-# The application should open automatically at http://localhost:3000
+### The application should open automatically at http://localhost:3000
 
-🤝 Contribution
+# 🤝 Contribution
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
 Fork the Project.
@@ -80,10 +84,10 @@ Push to the Branch (git push origin feature/AmazingFeature).
 
 Open a Pull Request.
 
-📄 License
+# 📄 License
 Distributed under the MIT License. See LICENSE for more information.
 
-📞 Contact
+# 📞 Contact
 Email - gautamsaloni873@gmail.com
 
 Project Link: https://github.com/saloni873/scatch
@@ -92,6 +96,4 @@ Project Link: https://github.com/saloni873/scatch
 
 
 
-```bash
-git clone [https://github.com/your-username/scatch.git](https://github.com/your-username/scatch.git)
-cd scatch
+
