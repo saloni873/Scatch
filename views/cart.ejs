@@ -1,0 +1,105 @@
+<%- include('./partials/header') %>
+
+<div class="w-full min-h-screen px-20 py-10">
+    <h1 class="text-4xl font-bold mb-10 border-b pb-3">Your Shopping Cart 🛒</h1>
+
+    <div class="w-2/3 float-left pr-10">
+        <% if (user.cart && user.cart.length > 0) { %>
+            <% user.cart.forEach(function(item){ 
+                // Calculate item-specific costs for display (using the item's data)
+                const price = Number(item.price) || 0;
+                const discount = Number(item.discount) || 0;
+                const platformFeeValue = Number(platformFee) || 0;
+                
+                const itemNetCost = price - discount + platformFeeValue; 
+            %>
+
+                <div class="w-full flex items-center py-8 border-b border-gray-200 hover:bg-gray-50 transition duration-150">
+                    
+                    <div class="w-1/3 flex items-center">
+                        <div class="w-28 h-28 rounded-lg overflow-hidden flex-shrink-0 mr-6 
+                             flex justify-center items-center bg-[<%= item.bgcolor || '#e5e7eb' %>]">
+                             
+                             <img class="h-[6rem] w-auto object-contain" 
+                                 src="data:image/jpeg;base64 ,<%= item.image ? item.image.toString('base64') : '' %>" 
+                                 alt="<%= item.name || 'Product Image' %>">
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold"><%= item.name || 'Product' %></h3>
+                            <p class="text-gray-500">
+                                <span class="text-sm  mr-2">₹ <%= price.toFixed(2) %></span>
+                                
+                            </p>
+                            
+                            <form action="/cart/remove/<%= item._id %>" method="POST" class="mt-1">
+                                <button type="submit" class="text-sm text-red-500 hover:underline">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="w-1/6 flex items-center justify-center">
+                        <div class="flex items-center gap-2 border rounded-md p-1 bg-white">
+                            <i class="w-6 h-6 flex items-center justify-center cursor-pointer ri-subtract-line text-gray-600 hover:text-black"></i>
+                            <div class="font-medium">01</div> <i class="w-6 h-6 flex items-center justify-center cursor-pointer ri-add-line text-gray-600 hover:text-black"></i>
+                        </div>
+                    </div>
+
+                    <div class="w-1/2 text-right">
+                        <div class="text-lg font-bold text-green-600">
+                            ₹ <%= itemNetCost.toFixed(2) %>
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">
+                            (Includes Platform Fee: ₹ <%= platformFee %>)
+                        </div>
+                    </div>
+                </div>
+            <% })%>
+        <% } else { %>
+            <div class="text-center py-20 bg-gray-100 rounded-lg">
+                <h2 class="text-2xl text-gray-600">Your cart is empty!</h2>
+                <p class="mt-2"><a href="/shop" class="text-blue-500 hover:underline">Go shopping now</a></p>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="w-1/3 float-right sticky top-10">
+        <div class="p-8 bg-gray-50 rounded-lg shadow-xl border border-gray-200">
+            <h2 class="text-2xl font-bold mb-6 border-b pb-3">Price Details</h2>
+            
+            <div class="space-y-3 text-gray-700">
+                <div class="flex justify-between">
+                    <span>Total MRP (Items)</span>
+                    <span class="font-medium">₹ <%= totalMRP %></span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Discount</span>
+                    <span class="font-medium text-red-500">- ₹ <%= totalDiscount %></span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Platform Fee</span>
+                    <span class="font-medium">₹ <%= platformFee %></span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Shipping Fee</span>
+                    <span class="font-bold text-green-600">FREE</span>
+                </div>
+            </div>
+
+            <div class="w-full h-[1px] bg-gray-300 my-5"></div>
+            
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold">Total Payable</h3>
+                <h3 class="text-3xl font-extrabold text-green-700">₹ <%= grandTotal %></h3>
+            </div>
+
+            <button class="w-full mt-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+    
+    <div class="clearfix"></div>
+</div>
+
+<%- include('./partials/footer') %>
